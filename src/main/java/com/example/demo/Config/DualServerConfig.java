@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class DualServerConfig {
+    @Bean
+    public WebServerFactoryCustomizer<NettyReactiveWebServerFactory> webfluxServer() {
+        return factory -> factory.setPort(9001); // Netty для WebFlux
+    }
 
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> mvcServer() {
-        return factory -> factory.setPort(8080); // Tomcat для MVC
+        return factory -> factory.setPort(9000); // Tomcat для MVC
     }
 
-    @Bean
-    public WebServerFactoryCustomizer<NettyReactiveWebServerFactory> webfluxServer() {
-        return factory -> factory.setPort(8081); // Netty для WebFlux
-    }
 }
